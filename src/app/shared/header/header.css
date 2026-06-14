@@ -1,0 +1,18 @@
+.navbar-brand {
+    letter-spacing: 1px;
+}
+
+.nav-link {
+    font-size: 17px;
+    transition: .3s;
+}
+
+.nav-link:hover {
+    color: #ffc107 !important;
+}
+
+.btn-warning {
+    width: 50px;
+    height: 45px;
+    border-radius: 10px;
+}
