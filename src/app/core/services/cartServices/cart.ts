@@ -1,5 +1,5 @@
 import { Injectable, signal } from '@angular/core';
-import { Product } from '../models/product';
+import { Product } from '../../models/product';
 
 @Injectable({
   providedIn: 'root',
@@ -22,10 +22,13 @@ export class CartService {
   removeFromCart(id: number) {
     this.cartItems.update((items) => items.filter((item) => item.id !== id));
 
-    localStorage.setItem('cart',JSON.stringify(this.cartItems()))
+    localStorage.setItem('cart', JSON.stringify(this.cartItems()));
   }
 
   clearCart() {
     this.cartItems.set([]);
+  }
+  isInCart(productId: number): boolean {
+    return this.cartItems().some((item) => item.id === productId);
   }
 }

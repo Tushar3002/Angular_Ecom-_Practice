@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { Product } from '../../core/models/product';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { CartService } from '../../core/services/cart';
+import { CartService } from '../../core/services/cartServices/cart';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +13,7 @@ import { CartService } from '../../core/services/cart';
 export class Home {
   products= signal<Product[]>([]);
   constructor(
-    private cartService:CartService,
+    public cartService:CartService,
     private router: Router,
     private http: HttpClient,
   ) {}
@@ -27,10 +27,9 @@ export class Home {
     this.http.get<Product[]>(this.url).subscribe((data) => {
       this.products.set(data);
       console.log(data);
-      
     });
   }
-  addProduct(product: any) {
+    addProduct(product: Product) {
   this.cartService.addToCart(product);
 }
 }

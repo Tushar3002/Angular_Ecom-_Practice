@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CartService } from '../../core/services/cart';
+import { CartService } from '../../core/services/cartServices/cart';
 
 @Component({
   selector: 'app-cart',
@@ -12,7 +12,4 @@ export class Cart {
     console.log(cartService.cartItems());
   }
 
-  ngOnInit(){
-    
-  }
 }

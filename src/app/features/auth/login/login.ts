@@ -23,6 +23,14 @@ export class Login {
     });
   }
 
+  get password() {
+    return this.loginForm.get('password');
+  }
+
+  get email() {
+    return this.loginForm.get('email');
+  }
+
   onSubmit() {
     const { email, password } = this.loginForm.value;
 

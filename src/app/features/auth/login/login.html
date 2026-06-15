@@ -13,6 +13,12 @@
           type="email"
           class="form-control"
           formControlName="email">
+          @if (email?.hasError('required') && email?.touched) {
+                <span class="text-danger">Email is required</span>
+              }
+           @if (email?.hasError('email') && email?.touched) {
+                <span class="text-danger">Email is not Valid</span>
+              }   
       </div>
 
       <div class="mb-3">
@@ -21,6 +27,9 @@
           type="password"
           class="form-control"
           formControlName="password">
+        @if (password?.hasError('required') && password?.touched) {
+                <span class="text-danger">Password is required</span>
+              }
       </div>
 
       @if(errorMessage){
