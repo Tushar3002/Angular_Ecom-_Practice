@@ -1,0 +1,8 @@
+<h2>Cart</h2>
+
+@for(item of cartService.cartItems(); track item.id) {
+  <p>{{ item.title }}</p>
+  
+
+  <button (click)="cartService.removeFromCart(item.id)">Remove</button>
+}

@@ -1,9 +1,15 @@
 import { Component } from '@angular/core';
+import { CartService } from '../../core/services/cart';
+import { RouterLink } from "@angular/router";
+import { Auth } from '../../core/services/authService/auth';
 
 @Component({
   selector: 'app-header',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
-export class Header {}
+export class Header {
+  constructor(public cartService: CartService,public authService: Auth) {}
+  
+}

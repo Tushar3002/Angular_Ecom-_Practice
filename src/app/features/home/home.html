@@ -49,11 +49,11 @@
 
                             <span class="fs-4 fw-bold text-success">
 
-                                ${{product.price}}
+                                ₹ {{product.price}}
 
                             </span>
 
-                            <span class="badge bg-warning text-dark">
+                            <span class="badge bg-success text-dark">
 
                                 ⭐ {{product.rating.rate}}
 
@@ -67,7 +67,7 @@
 
                         </small>
 
-                        <button class="btn btn-dark w-100 mt-3">
+                        <button (click)="addProduct(product)" class="btn btn-dark w-100 mt-3">
 
                             <i class="bi bi-cart-plus me-2"></i>
 
