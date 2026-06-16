@@ -1,0 +1,34 @@
+@if (products(); as product) {
+<div class="product-container">
+  <div class="image-section">
+    <img [src]="products()?.image" [alt]="products()?.title" />
+  </div>
+
+  <div class="details-section">
+    <span class="category">{{ products()?.category }}</span>
+
+    <h1>{{ products()?.title }}</h1>
+
+    <p class="description">
+      {{ products()?.description }}
+    </p>
+
+    <div class="rating">
+      ⭐ {{ products()?.rating?.rate }}
+      <span>({{ products()?.rating?.count }} Reviews)</span>
+    </div>
+
+    <h2 class="price">₹{{ products()?.price }}</h2>
+
+    <button
+      (click)="addProduct(product)"
+      class="btn btn-dark w-100 mt-3"
+      [disabled]="cartService.isInCart(product.id)"
+    >
+      <i class="bi bi-cart-plus me-2"></i>
+
+      {{ cartService.isInCart(product.id) ? 'Added to Cart' : 'Add to Cart' }}
+    </button>
+  </div>
+</div>
+}

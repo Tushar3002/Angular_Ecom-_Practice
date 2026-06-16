@@ -4,6 +4,7 @@ import { Cart } from './features/cart/cart';
 import { Login } from './features/auth/login/login';
 import { authGuard } from './core/guards/auth-guard';
 import { PageNotFound } from './shared/page-not-found/page-not-found';
+import { ProductDetails } from './features/product-details/product-details';
 
 export const routes: Routes = [
     {
@@ -14,6 +15,10 @@ export const routes: Routes = [
         path: '',
         component: Home,
 
+    },
+    {
+        path:'product/:id',
+        component:ProductDetails
     },
     {
         path:'cart',

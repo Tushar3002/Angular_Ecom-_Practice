@@ -29,7 +29,9 @@
                 <span class="badge bg-success text-dark"> ⭐ {{ product.rating.rate }} </span>
               </div>
 
-              <small class="text-muted"> {{ product.rating.count }} Reviews </small>
+              <a class="text-decoration-none" [routerLink]="['/product', product.id]">
+                View Details
+              </a>
 
               <button
                 (click)="addProduct(product)"
