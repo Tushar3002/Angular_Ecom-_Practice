@@ -41,7 +41,7 @@ export class Home {
     this.products.set(data);
   }
 
-  addProduct(product: Product) {
+  addCart(product: Product) {
     this.cartService.addToCart(product);
   }
 }
