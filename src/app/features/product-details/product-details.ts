@@ -3,6 +3,7 @@ import { Component, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../core/models/product';
 import { CartService } from '../../core/services/cartServices/cart';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-product-details',
@@ -23,14 +24,19 @@ export class ProductDetails {
     this.getSingleProduct(id);
   }
 
-  getSingleProduct(id: string) {
-    if (id) {
-      this.http.get<Product>(`${this.url}/${id}`).subscribe((data) => {
-        console.log(data);
-        this.products.set(data);
-        console.log(this.products);
-      });
-    }
+  // getSingleProduct(id: string) {
+  //   if (id) {
+  //     this.http.get<Product>(`${this.url}/${id}`).subscribe((data) => {
+  //       console.log(data);
+  //       this.products.set(data);
+  //       console.log(this.products);
+  //     });
+  //   }
+  // }
+
+  async getSingleProduct(id:string){
+    const data=await firstValueFrom(this.http.get<Product>(`${this.url}/${id}`))
+    this.products.set(data)
   }
 
   addProduct(product: Product) {
