@@ -1,27 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Auth } from '../../../core/services/authService/auth';
+import { ApiService } from '../../../core/api/api-service';
+import { authData, LoginRequest } from '../../../core/models/authModel';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.html',
 })
 export class Login {
-  loginForm: FormGroup;
-  errorMessage = '';
+  // loginForm: FormGroup;
+
+
+  private fb = inject(FormBuilder);
 
   constructor(
-    private fb: FormBuilder,
+    // private fb: FormBuilder,
     private router: Router,
-    private authService:Auth
-  ) {
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
-    });
-  }
+    private authService: Auth,
+    private api: ApiService,
+  ) {}
+  loginForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required],
+  });
 
   get password() {
     return this.loginForm.get('password');
@@ -31,27 +35,34 @@ export class Login {
     return this.loginForm.get('email');
   }
 
-  onSubmit() {
+  async loginUser() {
     const { email, password } = this.loginForm.value;
-
-    const demoUser = {
-      email: 'tj@gmail.com',
-      password: '123456'
+    const payload: LoginRequest = {
+      email: email!,
+      password: password!,
     };
+    return await this.api.request<authData>('POST', '/auth/login', payload);
+  }
 
-    if (
-      email === demoUser.email &&
-      password === demoUser.password
-    ) {
-      this.authService.login('demo-jwt-token');
-      localStorage.setItem('user', JSON.stringify({
-        email: demoUser.email
-      }));
+  async onSubmit() {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return;
+    }
 
-
-      this.router.navigate(['/']);
-    } else {
-      this.errorMessage = 'Invalid Email or Password';
+    try {
+      const res = await this.loginUser();
+      console.log(res);
+      
+      if (res?.status && res.data) {
+        this.authService.login(res.data.token);
+        this.authService.role.set(res.data.user.role)
+        console.log(res.data.user.role);
+        
+        await this.router.navigate(['/']);
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
 }

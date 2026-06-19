@@ -32,12 +32,7 @@
               }
       </div>
 
-      @if(errorMessage){
-        <div class="alert alert-danger">
-          {{ errorMessage }}
-        </div>
-      }
-
+   
       <button
         class="btn btn-primary w-100"
         type="submit">
@@ -45,6 +40,8 @@
       </button>
 
     </form>
+
+    <span>Not A User Yet ?<a routerLink="/register" style="text-decoration: none;"> Register Now </a></span>
 
   </div>
 </div>

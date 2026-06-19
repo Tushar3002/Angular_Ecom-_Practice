@@ -1,0 +1,72 @@
+<div class="container mt-5">
+  <div class="card p-4 mx-auto" style="max-width: 400px">
+    <h2 class="text-center mb-4">Register</h2>
+
+    <form [formGroup]="RegisterForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label>Name</label>
+        <input type="name" class="form-control" formControlName="name" />
+        @if (name?.hasError('required') && name?.touched) {
+          <span class="text-danger">name is required</span>
+        }
+        @if (name?.hasError('maxlength') && name?.touched) {
+          <span class="text-danger">Name is too Big</span>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label>Email</label>
+        <input type="email" class="form-control" formControlName="email" />
+        @if (email?.hasError('required') && email?.touched) {
+          <span class="text-danger">Email is required</span>
+        }
+        @if (email?.hasError('email') && email?.touched) {
+          <span class="text-danger">Email is not Valid</span>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label>Password</label>
+        <input type="password" class="form-control" formControlName="password" />
+        @if (password?.hasError('required') && password?.touched) {
+          <span class="text-danger">Password is required</span>
+        }
+        @if (password?.hasError('minlength') && password?.touched) {
+          <span class="text-danger">Minimun Password length 3 </span>
+        }
+        @if (password?.hasError('maxlength') && password?.touched) {
+          <span class="text-danger">Maximum Password length 6 </span>
+        }
+        
+      </div>
+
+      <div class="mb-3">
+        <label>Phone No </label>
+        <input type="text" class="form-control" formControlName="phone" />
+        @if (phone?.hasError('required') && phone?.touched) {
+          <span class="text-danger">Phone No is required</span>
+        }
+        @if (phone?.hasError('pattern') && phone?.touched) {
+          <span class="text-danger">Phone No is not valid</span>
+        }
+        
+      </div>
+
+      <div class="mb-3">
+        <label>Address</label>
+        <textarea type="" class="form-control" formControlName="address" ></textarea>
+        @if (address?.hasError('required') && address?.touched) {
+          <span class="text-danger">Adress is required</span>
+        }
+        @if (address?.hasError('minLength') && address?.touched) {
+          <span class="text-danger">Address is too short</span>
+        }
+        
+      </div>
+
+      <button class="btn btn-primary w-100" type="submit">Register</button>
+    </form>
+
+    <span>Already a User ? <a routerLink="/login" style="text-decoration: none;"> Login Now </a></span>
+  </div>
+</div>

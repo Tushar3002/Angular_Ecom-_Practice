@@ -7,10 +7,11 @@ import { CartService } from '../../core/services/cartServices/cart';
 import { firstValueFrom } from 'rxjs'; //
 import { ApiService } from '../../core/api/api-service';
 import { environment } from '../../../environment/environment';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink],
+  imports: [RouterLink,NgClass],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -38,20 +39,26 @@ export class Home {
   //     console.log(data);
   //   });
   // }
-  async getProducts() {
-    const data = await firstValueFrom(this.http.get<Product[]>(environment.apiUrl));
-    console.log(data);
-    this.products.set(data);
-  }
   // async getProducts() {
-  //   const res = await this.api.request<Product[]>(
-  //      'GET',
-  //      'this.url'
-  // );
+  //   const data = await firstValueFrom(this.http.get<Product[]>(environment.apiUrl));
   //   console.log(data);
-    
   //   this.products.set(data);
   // }
+  async getProducts() {
+  try {
+    const res = await this.api.request<Product[]>(
+      'GET',
+      '/products'
+    );
+
+    console.log(res);
+
+    this.products.set(res.data);
+
+  } catch (error) {
+    console.error('Failed to fetch products', error);
+  }
+}
 
   addCart(product: Product) {
     this.cartService.addToCart(product);

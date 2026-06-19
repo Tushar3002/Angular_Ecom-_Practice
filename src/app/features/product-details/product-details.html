@@ -1,21 +1,21 @@
 @if (products(); as product) {
 <div class="product-container">
   <div class="image-section">
-    <img [src]="products()?.image" [alt]="products()?.title" />
+    <img [src]="products()?.image" [alt]="products()?.name" />
   </div>
 
   <div class="details-section">
     <span class="category">{{ products()?.category }}</span>
 
-    <h1>{{ products()?.title }}</h1>
+    <h1>{{ products()?.name }}</h1>
 
     <p class="description">
       {{ products()?.description }}
     </p>
 
     <div class="rating">
-      ⭐ {{ products()?.rating?.rate }}
-      <span>({{ products()?.rating?.count }} Reviews)</span>
+      ⭐ {{ products()?.rating?.toFixed(1)}}
+      <span>({{ products()?.numReviews }} Reviews)</span>
     </div>
 
     <h2 class="price">₹{{ products()?.price }}</h2>

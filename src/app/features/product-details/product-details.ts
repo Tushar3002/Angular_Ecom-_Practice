@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../core/models/product';
 import { CartService } from '../../core/services/cartServices/cart';
 import { firstValueFrom } from 'rxjs';
+import { ApiService } from '../../core/api/api-service';
 
 @Component({
   selector: 'app-product-details',
@@ -17,6 +18,7 @@ export class ProductDetails {
     public route: ActivatedRoute,
     private http: HttpClient,
     public cartService:CartService,
+    private api:ApiService
   ) {}
   url = 'https://fakestoreapi.com/products';
   ngOnInit() {
@@ -35,8 +37,15 @@ export class ProductDetails {
   // }
 
   async getSingleProduct(id:string){
-    const data=await firstValueFrom(this.http.get<Product>(`${this.url}/${id}`))
-    this.products.set(data)
+    // const data=await firstValueFrom(this.http.get<Product>(`${this.url}/${id}`))
+    // this.products.set(data)
+
+    const res=await this.api.request<Product>(
+      'GET',
+      `/products/${id}`,
+    );
+
+    this.products.set(res.data)
   }
 
   addProduct(product: Product) {

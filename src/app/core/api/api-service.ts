@@ -19,8 +19,9 @@ export class ApiService {
     method: 'GET' | 'POST' | 'PUT' | 'DELETE',
     endpoint: string,
     body?: any,
-    token?: string
   ): Promise<ApiResponse<T>> {
+
+    let token=localStorage.getItem('token')
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       ...(token && { Authorization: `Bearer ${token}` }),
