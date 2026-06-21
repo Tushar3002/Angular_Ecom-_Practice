@@ -8,6 +8,8 @@ import { ProductDetails } from './features/product-details/product-details';
 import { Register } from './features/auth/register/register';
 import { publicGuard } from './core/guards/public-guard';
 import { Checkout } from './features/checkout/checkout';
+import { ProductsList } from './admin/products-list/products-list';
+import { AddProduct } from './admin/add-product/add-product';
 // import { Checkout } from './features/checkout/checkout';
 
 export const routes: Routes = [
@@ -39,6 +41,15 @@ export const routes: Routes = [
         path:'checkout',
         component:Checkout,
         canActivate:[authGuard]
+    },
+    {
+        path:'admin/add-product',
+        component:AddProduct,
+
+    },
+    {
+        path:'admin/products-list',
+        component:ProductsList,
     },
     {
         path:'**',

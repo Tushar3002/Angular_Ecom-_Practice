@@ -4,48 +4,92 @@
       Buy<span class="text-success">More</span>
     </a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar">
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbar">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbar">
-      <div class="collapse navbar-collapse" id="navbar">
-        <ul class="navbar-nav ms-auto align-items-center">
-         
-            <li class="nav-item">
-            <a class="nav-link active" routerLink="/">Home</a>
-          </li>
-           @if(authService.role()==='user'){
+      <ul class="navbar-nav ms-auto align-items-center">
+
+
+
+        <li class="nav-item">
+          <a class="nav-link active" routerLink="/">Home</a>
+        </li>
+
+
+        @if(authService.role() === 'user') {
+
           <li class="nav-item">
             <a class="nav-link" routerLink="">Categories</a>
           </li>
 
           <li class="nav-item ms-3">
-            <button class="btn btn-success position-relative" routerLink="/cart">
+            <button
+              class="btn btn-success position-relative"
+              routerLink="/cart">
+
               <i class="bi bi-cart3 fs-5"></i>
 
               <span
-                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-              >
+                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                 {{ cartService.cartItems().length }}
               </span>
+
             </button>
           </li>
 
-          }
-          {{ authService.role() }}
-            <li class="nav-item ms-3">
-            @if (authService.isLoggedIn()) {
-              <button class="btn btn-danger" (click)="authService.logout()">Logout</button>
-            } @else {
-              <button class="btn btn-success" routerLink="/login">Login</button>
-            }
+        }
+
+
+        @if(authService.role() === 'admin') {
+
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/admin/products-list">
+              Manage Products
+            </a>
           </li>
-          
-          
-          
-        </ul>
-      </div>
+
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/admin/add-product">
+              Add Product
+            </a>
+          </li>
+
+        }
+
+
+        <li class="nav-item ms-3">
+
+          @if(authService.isLoggedIn()) {
+
+            <button
+              class="btn btn-danger"
+              (click)="authService.logout()">
+
+              Logout
+
+            </button>
+
+          } @else {
+
+            <button
+              class="btn btn-success"
+              routerLink="/login">
+
+              Login
+
+            </button>
+
+          }
+
+        </li>
+
+      </ul>
     </div>
   </div>
 </nav>
