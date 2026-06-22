@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CartService } from '../../core/services/cartServices/cart';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Auth } from '../../core/services/authService/auth';
 
 @Component({
   selector: 'app-checkout',
@@ -9,19 +11,25 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './checkout.css',
 })
 export class Checkout {
+
+  
   checkoutForm: FormGroup;
   loading = false;
-
+  private router=inject(Router)
   constructor(
     private fb: FormBuilder,
-    public cartService: CartService
+    public cartService: CartService,  
+    public user:Auth
   ) {
     this.checkoutForm = this.fb.group({
+      
+      
       useSaved: [false],
       address: ['', Validators.required],
       paymentMethod: ['COD', Validators.required],
     });
-
+    console.log(user.userData()?.address);
+    
     this.checkoutForm.get('useSaved')?.valueChanges.subscribe((checked) => {
       const addressControl = this.checkoutForm.get('address');
 
@@ -31,20 +39,26 @@ export class Checkout {
         addressControl?.enable();
       }
     });
+
+    if (this.cartService.cartItems().length === 0) {
+      this.router.navigate(['/']);
+    }
   }
 
   get total() {
     return this.cartService
       .cartItems()
-      .reduce((sum, item) => sum + item.price * item.quantity!, 0);
+      .reduce((sum, item) => sum + item.price * item.quantity, 0);
   }
 
   placeOrder() {
     if (this.checkoutForm.invalid) {
       this.checkoutForm.markAllAsTouched();
       return;
+      
     }
-
+     this.cartService.clearCart();
+    this.router.navigate(['success'])
     console.log({
       ...this.checkoutForm.getRawValue(),
       items: this.cartService.cartItems(),

@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiService } from '../../../core/api/api-service';
 import { authData, RegisterRequest } from '../../../core/models/authModel';
-import { Auth } from '../../../core/services/authService/auth';
+
 import { Router, RouterLink } from '@angular/router';
 
 @Component({
@@ -14,7 +14,7 @@ import { Router, RouterLink } from '@angular/router';
 export class Register {
   private fb=inject(FormBuilder)
 
-  constructor(private api:ApiService,private authService:Auth,private router:Router){}
+  constructor(private api:ApiService,private router:Router){}
   RegisterForm=this.fb.group({
     name:['',[Validators.required,Validators.maxLength(20)]],
     email:['',[Validators.required,Validators.email]],

@@ -56,7 +56,7 @@ export class Login {
       
       if (res?.status && res.data) {
         this.authService.login(res.data.token);
-        this.authService.role.set(res.data.user.role)
+        this.authService.userData.set(res.data.user)
         console.log(res.data.user.role);
         
         await this.router.navigate(['/']);

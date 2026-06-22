@@ -11,25 +11,25 @@
           formControlName="useSaved"
         />
 
-        <label class="form-check-label" for="savedAddress">
-          Use saved address
-        </label>
+        <label class="form-check-label" for="savedAddress"> Use saved address </label>
       </div>
 
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Enter Address"
-        formControlName="address"
-      />
-
-      @if(
-        checkoutForm.get('address')?.invalid &&
-        checkoutForm.get('address')?.touched
-      ){
-        <div class="text-danger mt-1">
-          Address is required
+      @if (checkoutForm.get('useSaved')?.value) {
+        <div class="form-control bg-light">
+          {{ user.userData()?.address }}
+            <!-- {{user.userData()}} -->
         </div>
+      } @else {
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter Address"
+          formControlName="address"
+        />
+      }
+
+      @if (checkoutForm.get('address')?.invalid && checkoutForm.get('address')?.touched) {
+        <div class="text-danger mt-1">Address is required</div>
       }
     </div>
 
@@ -37,15 +37,11 @@
       <div class="card-body">
         <h5 class="card-title mb-3">Order Summary</h5>
 
-        @for(item of cartService.cartItems(); track item.id){
+        @for (item of cartService.cartItems(); track item.id) {
           <div class="d-flex justify-content-between mb-2">
-            <span>
-              {{ item.name }} x {{ item.quantity }}
-            </span>
+            <span> {{ item.name }} x {{ item.quantity }} </span>
 
-            <span>
-              ₹ {{ item.price * item.quantity! }}
-            </span>
+            <span> ₹ {{ item.price * item.quantity! }} </span>
           </div>
         }
 
@@ -56,10 +52,7 @@
           <span>₹ {{ total }}</span>
         </div>
 
-        <select
-          class="form-select mt-3"
-          formControlName="paymentMethod"
-        >
+        <select class="form-select mt-3" formControlName="paymentMethod">
           <option value="COD">Cash on Delivery</option>
           <option value="UPI">UPI</option>
         </select>

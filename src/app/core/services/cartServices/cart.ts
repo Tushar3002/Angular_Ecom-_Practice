@@ -58,6 +58,7 @@ export class CartService {
 
   clearCart() {
     this.cartItems.set([]);
+     localStorage.removeItem('cart');
   }
   isInCart(productId: number): boolean {
     return this.cartItems().some((item) => item.id === productId);

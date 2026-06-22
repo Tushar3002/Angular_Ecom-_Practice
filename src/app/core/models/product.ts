@@ -22,7 +22,7 @@ export interface Product {
   category: string;
   brand: string | null;
   slug: string | null;
-  quantity:number|null;
+  quantity:number;
   price: number;
   discountPrice: number | null;
   stock: number;

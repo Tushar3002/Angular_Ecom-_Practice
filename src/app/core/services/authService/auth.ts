@@ -9,8 +9,9 @@ import { User } from '../../models/authModel';
 })
 export class Auth {
   isLoggedIn = signal(!!localStorage.getItem('token'));
-  role = signal('');
-userId = signal('');
+//   role = signal('');
+// userId = signal('');
+  userData = signal<User | null>(null);
   constructor(private cartServices:CartService, private router:Router,private api:ApiService){}
   async loadUser() {
   const token = this.getToken();
@@ -23,9 +24,9 @@ userId = signal('');
     // );
 
     const user=await this.api.request<User>('GET','/auth/me')
-
-    this.role.set(user.data.role);
-    this.userId.set(user.data.id.toString());
+    this.userData.set(user.data);
+    // this.role.set(user.data.role);
+    // this.userId.set(user.data.id.toString());
     this.isLoggedIn.set(true);
   } catch {
     this.logout();

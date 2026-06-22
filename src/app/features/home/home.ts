@@ -11,7 +11,7 @@ import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-home',
-  imports: [RouterLink,NgClass],
+  imports: [RouterLink, NgClass],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
@@ -21,7 +21,7 @@ export class Home {
     public cartService: CartService,
     private router: Router,
     private http: HttpClient,
-    private api:ApiService
+    private api: ApiService,
   ) {}
 
   // ngOnInit() {
@@ -31,7 +31,6 @@ export class Home {
   async ngOnInit() {
     await this.getProducts();
   }
-
 
   // getProducts() {
   //   this.http.get<Product[]>(this.url).subscribe((data) => {
@@ -45,20 +44,19 @@ export class Home {
   //   this.products.set(data);
   // }
   async getProducts() {
-  try {
-    const res = await this.api.request<Product[]>(
-      'GET',
-      '/products'
-    );
+    try {
+      const res = await this.api.request<Product[]>('GET', '/products', undefined, {
+        showLoader: false,
+        showToaster: false,
+      });
 
-    console.log(res);
+      console.log(res);
 
-    this.products.set(res.data);
-
-  } catch (error) {
-    console.error('Failed to fetch products', error);
+      this.products.set(res.data);
+    } catch (error) {
+      console.error('Failed to fetch products', error);
+    }
   }
-}
 
   addCart(product: Product) {
     this.cartService.addToCart(product);
