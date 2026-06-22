@@ -1,0 +1,92 @@
+<div class="container mt-5">
+  <div class="card shadow p-4 mx-auto" style="max-width: 550px">
+    <h2 class="text-center mb-4">Add Product</h2>
+
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+
+      <div class="mb-3">
+        <label class="form-label">Product Name</label>
+
+        <input type="text" class="form-control" formControlName="name" />
+
+        @if (name?.hasError('required') && name?.touched) {
+          <span class="text-danger"> Product Name is required </span>
+        }
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Price</label>
+
+        <input type="number" class="form-control" formControlName="price" />
+
+        @if (price?.hasError('required') && price?.touched) {
+          <span class="text-danger"> Price is required </span>
+        }
+      </div>
+
+
+      <div class="mb-3">
+        <label class="form-label">Stock</label>
+
+        <input type="number" class="form-control" formControlName="stock" />
+
+        @if (stock?.hasError('required') && stock?.touched) {
+          <span class="text-danger"> Stock is required </span>
+        }
+      </div>
+
+
+      <div class="mb-3">
+        <label class="form-label">Description</label>
+
+        <textarea rows="4" class="form-control" formControlName="description"> </textarea>
+
+        @if (description?.hasError('required') && description?.touched) {
+          <span class="text-danger"> Description is required </span>
+        }
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Category</label>
+
+        <select class="form-select" formControlName="category">
+          <option value="">Select Category</option>
+          <option value="toy">Toy</option>
+          <option value="electronic">Electronic</option>
+          <option value="furniture">Furniture</option>
+          <option value="fashion">Fashion</option>
+          <option value="watch">Watch</option>
+        </select>
+
+        @if (category?.hasError('required') && category?.touched) {
+          <span class="text-danger"> Category is required </span>
+        }
+      </div>
+
+
+      <div class="mb-3">
+        <label class="form-label"> Product Image </label>
+
+        <input
+          type="file"
+          class="form-control"
+          accept="image/*"
+          (change)="onFileSelected($event)"
+        />
+      </div>
+
+      @if (imagePreview) {
+        <div class="text-center mb-3">
+          <img
+            [src]="imagePreview"
+            class="img-thumbnail"
+            style="height: 200px; object-fit: cover"
+          />
+        </div>
+      }
+
+      <button class="btn btn-primary w-100" [disabled]="loadingSubmit">
+        {{ loadingSubmit ? 'Adding Product...' : 'Add Product' }}
+      </button>
+    </form>
+  </div>
+</div>
