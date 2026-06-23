@@ -15,6 +15,7 @@ import { EditProduct } from './features/admin/edit-product/edit-product';
 import { adminGuard } from './core/guards/admin-guard';
 import { Category } from './features/category/category/category';
 import { CategoryProducts } from './features/category/category-products/category-products';
+import { MyOrders } from './features/my-orders/my-orders';
 // import { Checkout } from './features/checkout/checkout';
 
 export const routes: Routes = [
@@ -55,6 +56,11 @@ export const routes: Routes = [
     path: 'checkout',
     component: Checkout,
     canActivate: [authGuard],
+  },
+  {
+    path:'my-orders',
+    component:MyOrders,
+    canActivate:[authGuard]
   },
   {
     path: 'success',
