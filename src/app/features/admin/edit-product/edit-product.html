@@ -1,0 +1,93 @@
+
+<div class="container mt-4">
+  <h2>Edit Product</h2>
+
+  @if (error()) {
+    <div class="alert alert-danger">
+      {{ error() }}
+    </div>
+  }
+
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+
+    <div class="mb-3">
+      <label class="form-label">Product Name</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="name">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Price</label>
+      <input
+        type="number"
+        class="form-control"
+        formControlName="price">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Description</label>
+      <textarea
+        rows="4"
+        class="form-control"
+        formControlName="description">
+      </textarea>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Stock</label>
+      <input
+        type="number"
+        class="form-control"
+        formControlName="stock">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Category</label>
+
+      <select
+        class="form-select"
+        formControlName="category">
+
+        <option value="toy">TOY</option>
+        <option value="electronic">ELECTRONIC</option>
+        <option value="furniture">FURNITURE</option>
+        <option value="fashion">FASHION</option>
+        <option value="watch">WATCH</option>
+        <option value="cosmetic">COSMETIC</option>
+
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Image</label>
+
+      <input
+        type="file"
+        class="form-control"
+        (change)="onFileSelected($event)">
+    </div>
+
+    @if (imagePreview()) {
+      <div class="mb-3">
+        <p>Preview:</p>
+
+        <img
+          [src]="imagePreview()"
+          class="img-thumbnail"
+          width="150">
+      </div>
+    }
+
+    <button
+      class="btn btn-primary w-100"
+      [disabled]="submitting()">
+
+      {{ submitting() ? 'Updating...' : 'Update Product' }}
+
+    </button>
+
+  </form>
+</div>
+
