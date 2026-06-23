@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { ApiService } from '../../../core/api/api-service';
-import { Product } from '../../../core/models/product';
+import { Product, ProductPage } from '../../../core/models/product';
 
 @Component({
   selector: 'app-products-list',
@@ -12,6 +12,9 @@ import { Product } from '../../../core/models/product';
 export class ProductsList {
   products = signal<Product[]>([]);
   loading = signal(true);
+  currentPage = signal(1);
+  totalPages = signal(1);
+  totalProducts = signal(0);
 
   constructor(
     private api: ApiService,
@@ -22,13 +25,16 @@ export class ProductsList {
     this.fetchProducts();
   }
 
-  async fetchProducts() {
+  async fetchProducts(page=1) {
     try {
-      const res = await this.api.request<Product[]>('GET', '/products',undefined,{showLoader:false,showToaster:false});
+      const res = await this.api.request<ProductPage>('GET', `/products?page=${page}&limit=10`,undefined,{showLoader:false,showToaster:false});
 
       if (res.status) {
-        this.products.set(res.data);
+        this.products.set(res.data.products);
       }
+      this.currentPage.set(res.data.currentPage);
+      this.totalPages.set(res.data.totalPages);
+      this.totalProducts.set(res.data.totalProducts);
     } catch (error) {
       console.error(error);
     } finally {
@@ -47,11 +53,21 @@ export class ProductsList {
 
     try {
       await this.api.request('DELETE', `/products/${id}`);
-
       this.products.update((products) => products.filter((product) => product.id !== id));
       
     } catch (error) {
       console.error(error);
+    }
+  }
+  nextPage() {
+    if (this.currentPage() < this.totalPages()) {
+      this.fetchProducts(this.currentPage() + 1);
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage() > 1) {
+      this.fetchProducts(this.currentPage() - 1);
     }
   }
 }

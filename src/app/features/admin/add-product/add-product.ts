@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import {
   FormBuilder,
   ReactiveFormsModule,
@@ -16,7 +16,7 @@ export class AddProduct {
   private fb = inject(FormBuilder);
 
   selectedImage!: File;
-  imagePreview: string | ArrayBuffer | null = null;
+  imagePreview = signal<string | null>(null);
 
   loadingSubmit = false;
 
@@ -62,7 +62,7 @@ export class AddProduct {
       const reader = new FileReader();
 
       reader.onload = () => {
-        this.imagePreview = reader.result;
+        this.imagePreview.set(reader.result as string);
       };
 
       reader.readAsDataURL(this.selectedImage);
@@ -96,7 +96,7 @@ export class AddProduct {
       await this.api.request('POST', '/products', formData);
 
       this.productForm.reset();
-      this.imagePreview = null;
+      this.imagePreview.set(null);
 
       await this.router.navigate(['/admin/products-list']);
     } catch (error) {
@@ -106,3 +106,26 @@ export class AddProduct {
     }
   }
 }
+
+
+// User selects image
+//         ↓
+// (change) event fires
+//         ↓
+// event.target → input element
+//         ↓
+// input.files[0]
+//         ↓
+// selectedImage = File object
+//         ↓
+// FileReader starts reading
+//         ↓
+// onload executes
+//         ↓
+// reader.result contains Data URL
+//         ↓
+// imagePreview signal updates
+//         ↓
+// Angular updates template
+//         ↓
+// <img> displays preview

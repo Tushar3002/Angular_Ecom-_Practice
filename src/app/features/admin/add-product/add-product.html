@@ -74,10 +74,10 @@
         />
       </div>
 
-      @if (imagePreview) {
+      @if (imagePreview()) {
         <div class="text-center mb-3">
           <img
-            [src]="imagePreview"
+            [src]="imagePreview()"
             class="img-thumbnail"
             style="height: 200px; object-fit: cover"
           />

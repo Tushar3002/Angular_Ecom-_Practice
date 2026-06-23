@@ -13,6 +13,12 @@
 //   };
 // }
 
+export interface ProductPage {
+  products: Product[];
+  currentPage: number;
+  totalPages: number;
+  totalProducts: number;
+}
 
 export interface Product {
   id: number;

@@ -7,7 +7,7 @@ import { authData, LoginRequest } from '../../../core/models/authModel';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.html',
 })
 export class Login {

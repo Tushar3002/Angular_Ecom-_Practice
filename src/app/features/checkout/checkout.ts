@@ -12,22 +12,21 @@ import { Auth } from '../../core/services/authService/auth';
 })
 export class Checkout {
 
-  
-  checkoutForm: FormGroup;
+  // checkoutForm: FormGroup;
   loading = false;
   private router=inject(Router)
-  constructor(
-    private fb: FormBuilder,
-    public cartService: CartService,  
-    public user:Auth
-  ) {
-    this.checkoutForm = this.fb.group({
-      
-      
+  private fb=inject(FormBuilder)
+  checkoutForm = this.fb.group({
       useSaved: [false],
       address: ['', Validators.required],
       paymentMethod: ['COD', Validators.required],
     });
+  constructor(
+    // private fb: FormBuilder,
+    public cartService: CartService,  
+    public user:Auth
+  ) {
+    
     console.log(user.userData()?.address);
     
     this.checkoutForm.get('useSaved')?.valueChanges.subscribe((checked) => {

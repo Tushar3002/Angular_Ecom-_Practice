@@ -11,6 +11,10 @@ import { Checkout } from './features/checkout/checkout';
 import { ProductsList } from './features/admin/products-list/products-list';
 import { AddProduct } from './features/admin/add-product/add-product';
 import { SuccessPage } from './features/success-page/success-page';
+import { EditProduct } from './features/admin/edit-product/edit-product';
+import { adminGuard } from './core/guards/admin-guard';
+import { Category } from './features/category/category/category';
+import { CategoryProducts } from './features/category/category-products/category-products';
 // import { Checkout } from './features/checkout/checkout';
 
 export const routes: Routes = [
@@ -38,6 +42,16 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    path:'category',
+    component:Category,
+    canActivate:[authGuard]
+  },
+  {
+    path:'category/:categoryName',
+    component:CategoryProducts,
+    canActivate:[authGuard]
+  },
+  {
     path: 'checkout',
     component: Checkout,
     canActivate: [authGuard],
@@ -50,10 +64,17 @@ export const routes: Routes = [
   {
     path: 'admin/add-product',
     component: AddProduct,
+    canActivate:[adminGuard]
   },
   {
     path: 'admin/products-list',
     component: ProductsList,
+    canActivate:[adminGuard]
+  },
+  {
+    path:'admin/edit/:id',
+    component:EditProduct,
+    canActivate:[adminGuard]
   },
   {
     path: '**',

@@ -3,7 +3,6 @@ import { Component, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../core/models/product';
 import { CartService } from '../../core/services/cartServices/cart';
-import { firstValueFrom } from 'rxjs';
 import { ApiService } from '../../core/api/api-service';
 
 @Component({
@@ -20,7 +19,7 @@ export class ProductDetails {
     public cartService:CartService,
     private api:ApiService
   ) {}
-  url = 'https://fakestoreapi.com/products';
+
   ngOnInit() {
     const id = this.route.snapshot.paramMap.get('id') ?? '';
     this.getSingleProduct(id);
