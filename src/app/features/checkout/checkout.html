@@ -60,10 +60,10 @@
         <button
           type="button"
           class="btn btn-success w-100 mt-3"
-          [disabled]="loading"
+          [disabled]="loading()"
           (click)="placeOrder()"
         >
-          {{ loading ? 'Placing Order...' : 'Place Order' }}
+          {{ loading() ? 'Placing Order...' : 'Place Order' }}
         </button>
       </div>
     </div>
