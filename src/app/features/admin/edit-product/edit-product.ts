@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApiService } from '../../../core/api/api-service';
+import { ApiService } from '../../../core/services/api/api-service';
 import { Product } from '../../../core/models/product';
 // import { ProductService } from '../../services/product.service';
 

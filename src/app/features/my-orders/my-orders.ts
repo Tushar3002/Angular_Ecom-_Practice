@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { ApiService } from '../../core/api/api-service';
+import { ApiService } from '../../core/services/api/api-service';
 import { Orders } from '../../core/models/orders';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from "@angular/router";

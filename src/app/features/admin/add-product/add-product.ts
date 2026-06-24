@@ -5,20 +5,21 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ApiService } from '../../../core/api/api-service';
+import { ApiService } from '../../../core/services/api/api-service';
 
 @Component({
   selector: 'app-add-product',
   imports: [ReactiveFormsModule],
   templateUrl: './add-product.html',
 })
+
 export class AddProduct {
   private fb = inject(FormBuilder);
 
   selectedImage!: File;
   imagePreview = signal<string | null>(null);
 
-  loadingSubmit = false;
+    loadingSubmit = false;
 
   constructor(
     private api: ApiService,

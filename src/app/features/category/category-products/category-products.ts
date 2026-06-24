@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { ApiService } from '../../../core/api/api-service';
+import { ApiService } from '../../../core/services/api/api-service';
 import { Product } from '../../../core/models/product';
 import { CartService } from '../../../core/services/cartServices/cart';
 import { CommonModule } from '@angular/common';

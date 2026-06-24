@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
-import { ApiService } from '../../../core/api/api-service';
+import { ApiService } from '../../../core/services/api/api-service';
 import { Product, ProductPage } from '../../../core/models/product';
 
 @Component({
@@ -15,7 +15,7 @@ export class ProductsList {
   currentPage = signal(1);
   totalPages = signal(1);
   totalProducts = signal(0);
-
+  
   constructor(
     private api: ApiService,
     private router: Router,

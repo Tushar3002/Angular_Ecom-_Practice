@@ -35,7 +35,7 @@ export class CartService {
 
   if (!item) return;
 
-  if (item.quantity! > 1) {
+  if (item.quantity > 1) {
     this.cartItems.update(items =>
       items.map(i =>
         i.id === product.id
@@ -46,7 +46,6 @@ export class CartService {
   } else {
     this.removeFromCart(product.id);
   }
-
   localStorage.setItem('cart', JSON.stringify(this.cartItems()));
 }
 

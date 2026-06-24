@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { ApiResponse } from '../models/api-service';
-import { environment } from '../../../environment/environment';
+import { ApiResponse } from '../../models/api-service';
+import { environment } from '../../../../environment/environment';
 import { lastValueFrom } from 'rxjs';
-import { LoadService } from '../services/LoadService/load-service';
-import { ToastService } from '../services/ToastService/toast-service';
+import { LoadService } from '../LoadService/load-service';
+import { ToastService } from '../ToastService/toast-service';
 
 @Injectable({
   providedIn: 'root',

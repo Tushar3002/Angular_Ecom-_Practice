@@ -3,7 +3,7 @@ import { Component, signal } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../core/models/product';
 import { CartService } from '../../core/services/cartServices/cart';
-import { ApiService } from '../../core/api/api-service';
+import { ApiService } from '../../core/services/api/api-service';
 
 @Component({
   selector: 'app-product-details',

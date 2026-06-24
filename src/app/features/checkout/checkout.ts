@@ -3,7 +3,7 @@ import { CartService } from '../../core/services/cartServices/cart';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Auth } from '../../core/services/authService/auth';
-import { ApiService } from '../../core/api/api-service';
+import { ApiService } from '../../core/services/api/api-service';
 
 @Component({
   selector: 'app-checkout',

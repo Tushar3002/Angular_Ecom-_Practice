@@ -1,17 +1,18 @@
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 import { CartService } from '../cartServices/cart';
 import { Router } from '@angular/router';
-import { ApiService } from '../../api/api-service';
+import { ApiService } from '../api/api-service';
 import { User } from '../../models/authModel';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Auth {
-  isLoggedIn = signal(!!localStorage.getItem('token'));
+  // isLoggedIn = signal(!!localStorage.getItem('token'));
   //   role = signal('');
   // userId = signal('');
   userData = signal<User | null>(null);
+  isLoggedIn = computed(() => !!this.userData());
   constructor(
     private cartServices: CartService,
     private router: Router,
@@ -31,7 +32,7 @@ export class Auth {
       this.userData.set(user.data);
       // this.role.set(user.data.role);
       // this.userId.set(user.data.id.toString());
-      this.isLoggedIn.set(true);
+      // this.isLoggedIn.set(true);
     } catch {
       this.logout();
     }
@@ -42,13 +43,13 @@ export class Auth {
 
   login(token: string) {
     localStorage.setItem('token', token);
-    this.isLoggedIn.set(true);
+    // this.isLoggedIn.set(true);
   }
 
   logout() {
     localStorage.removeItem('token');
     this.cartServices.clearCart();
-    this.isLoggedIn.set(false);
+    this.userData.set(null);
     this.router.navigate(['/login']);
   }
 }

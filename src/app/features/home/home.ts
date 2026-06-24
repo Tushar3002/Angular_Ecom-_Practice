@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { CartService } from '../../core/services/cartServices/cart';
 
 import { firstValueFrom } from 'rxjs'; //
-import { ApiService } from '../../core/api/api-service';
+import { ApiService } from '../../core/services/api/api-service';
 import { environment } from '../../../environment/environment';
 import { NgClass } from '@angular/common';
 
@@ -17,7 +17,7 @@ import { NgClass } from '@angular/common';
 })
 export class Home {
   products = signal<Product[]>([]);
-
+  
   currentPage = signal(1);
   totalPages = signal(1);
   totalProducts = signal(0);
